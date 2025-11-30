@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Registration Form</title>
+    <link rel="stylesheet" href="registration.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="form-wrapper">
+            <h1>Online Registration Form</h1>
+            <p class="subtitle">Please fill in all the required information</p>
+            
+            <form id="registrationForm" method="POST">
+                <div class="form-group">
+                    <label for="firstName">First Name <span class="required">*</span></label>
+                    <input type="text" id="firstName" name="firstName" required>
+                    <span class="error-message" id="firstNameError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Last Name <span class="required">*</span></label>
+                    <input type="text" id="lastName" name="lastName" required>
+                    <span class="error-message" id="lastNameError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" required>
+                    <span class="error-message" id="emailError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number <span class="required">*</span></label>
+                    <input type="tel" id="phone" name="phone" required>
+                    <span class="error-message" id="phoneError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="dateOfBirth">Date of Birth <span class="required">*</span></label>
+                    <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+                    <span class="error-message" id="dateOfBirthError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="gender">Gender <span class="required">*</span></label>
+                    <select id="gender" name="gender" required>
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <span class="error-message" id="genderError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Address <span class="required">*</span></label>
+                    <textarea id="address" name="address" rows="3" required></textarea>
+                    <span class="error-message" id="addressError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="city">City <span class="required">*</span></label>
+                    <input type="text" id="city" name="city" required>
+                    <span class="error-message" id="cityError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="state">State <span class="required">*</span></label>
+                    <input type="text" id="state" name="state" required>
+                    <span class="error-message" id="stateError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="pincode">Pincode <span class="required">*</span></label>
+                    <input type="text" id="pincode" name="pincode" pattern="[0-9]{6}" required>
+                    <span class="error-message" id="pincodeError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="course">Course/Program <span class="required">*</span></label>
+                    <input type="text" id="course" name="course" placeholder="e.g., B.E Computer Science" required>
+                    <span class="error-message" id="courseError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>Interests (Select all that apply)</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="interests[]" value="Web Development"> Web Development
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="interests[]" value="Mobile Development"> Mobile Development
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="interests[]" value="Data Science"> Data Science
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="interests[]" value="Machine Learning"> Machine Learning
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="interests[]" value="Cybersecurity"> Cybersecurity
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="terms" required> 
+                        I agree to the terms and conditions <span class="required">*</span>
+                    </label>
+                    <span class="error-message" id="termsError"></span>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" id="submitBtn" class="btn-submit">Submit Registration</button>
+                    <button type="reset" class="btn-reset">Reset Form</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="registration.js"></script>
+</body>
+</html>
+

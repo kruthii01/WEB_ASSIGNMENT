@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Success - Your Information</title>
+    <link rel="stylesheet" href="registration.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        
+        .success-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .success-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .success-header h1 {
+            color: #27ae60;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .success-icon {
+            font-size: 4em;
+            color: #27ae60;
+            margin-bottom: 20px;
+        }
+        
+        .info-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .info-section h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .info-value {
+            color: #555;
+        }
+        
+        .interests-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .interest-tag {
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        
+        .back-button {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .btn-back {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #e74c3c;
+        }
+        
+        @media (max-width: 768px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .info-label {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-header">
+            <div class="success-icon">✓</div>
+            <h1>Registration Successful!</h1>
+            <p style="color: #666; font-size: 1.1em;">Thank you for registering. Your information has been received.</p>
+        </div>
+
+        <div id="dataDisplay">
+            <!-- Data will be displayed here by JavaScript -->
+        </div>
+
+        <div class="back-button">
+            <a href="registration.html" class="btn-back">Register Another Person</a>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Get data from localStorage
+            var storedData = localStorage.getItem('registrationData');
+            
+            if (!storedData) {
+                $('#dataDisplay').html('<div class="no-data"><h2>No registration data found. Please fill out the form first.</h2></div>');
+                return;
+            }
+
+            var formData = JSON.parse(storedData);
+
+            // Format date of birth
+            var formattedDate = '';
+            if (formData.dateOfBirth) {
+                var dateObj = new Date(formData.dateOfBirth);
+                if (!isNaN(dateObj.getTime())) {
+                    var months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                                  'July', 'August', 'September', 'October', 'November', 'December'];
+                    formattedDate = months[dateObj.getMonth()] + ' ' + 
+                                   dateObj.getDate() + ', ' + 
+                                   dateObj.getFullYear();
+                } else {
+                    formattedDate = formData.dateOfBirth;
+                }
+            }
+
+            // Format address (preserve line breaks)
+            var formattedAddress = formData.address.replace(/\n/g, '<br>');
+
+            // Build HTML content
+            var html = '';
+
+            // Personal Information
+            html += '<div class="info-section">';
+            html += '<h2>Personal Information</h2>';
+            html += '<div class="info-grid">';
+            html += '<div class="info-label">Full Name:</div>';
+            html += '<div class="info-value">' + formData.firstName + ' ' + formData.lastName + '</div>';
+            html += '<div class="info-label">Email:</div>';
+            html += '<div class="info-value">' + formData.email + '</div>';
+            html += '<div class="info-label">Phone:</div>';
+            html += '<div class="info-value">' + formData.phone + '</div>';
+            html += '<div class="info-label">Date of Birth:</div>';
+            html += '<div class="info-value">' + (formattedDate || formData.dateOfBirth) + '</div>';
+            html += '<div class="info-label">Gender:</div>';
+            html += '<div class="info-value">' + formData.gender + '</div>';
+            html += '</div>';
+            html += '</div>';
+
+            // Address Information
+            html += '<div class="info-section">';
+            html += '<h2>Address Information</h2>';
+            html += '<div class="info-grid">';
+            html += '<div class="info-label">Address:</div>';
+            html += '<div class="info-value">' + formattedAddress + '</div>';
+            html += '<div class="info-label">City:</div>';
+            html += '<div class="info-value">' + formData.city + '</div>';
+            html += '<div class="info-label">State:</div>';
+            html += '<div class="info-value">' + formData.state + '</div>';
+            html += '<div class="info-label">Pincode:</div>';
+            html += '<div class="info-value">' + formData.pincode + '</div>';
+            html += '</div>';
+            html += '</div>';
+
+            // Academic Information
+            html += '<div class="info-section">';
+            html += '<h2>Academic Information</h2>';
+            html += '<div class="info-grid">';
+            html += '<div class="info-label">Course/Program:</div>';
+            html += '<div class="info-value">' + formData.course + '</div>';
+            html += '</div>';
+            html += '</div>';
+
+            // Interests
+            if (formData.interests && formData.interests.length > 0) {
+                html += '<div class="info-section">';
+                html += '<h2>Interests</h2>';
+                html += '<div class="interests-list">';
+                formData.interests.forEach(function(interest) {
+                    html += '<span class="interest-tag">' + interest + '</span>';
+                });
+                html += '</div>';
+                html += '</div>';
+            }
+
+            // Display the HTML
+            $('#dataDisplay').html(html);
+
+            // Animate the sections
+            $('.info-section').hide().each(function(index) {
+                $(this).delay(index * 200).fadeIn(500);
+            });
+        });
+    </script>
+</body>
+</html>
+
